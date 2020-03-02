@@ -10,5 +10,6 @@ class MarkovGenerator {
         MarkovGenerator();
     private:
         MarkovDictionary mMarkovChain;
-        void InsertWords(std::string* word1, std::string* word2);
+        std::string mPrevWord;
+        void InsertWord(std::string* word);
 };

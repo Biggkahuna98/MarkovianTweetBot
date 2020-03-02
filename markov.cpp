@@ -1,23 +1,23 @@
 #include "markov.hpp"
 
 MarkovGenerator::MarkovGenerator() {
+    mPrevWord = "";
 }
 
-void MarkovGenerator::InsertWords(std::string* word1, std::string* word2) {
-    // If the word is in the chain, update the value map with the
-    // successive word and count
-    if (mMarkovChain.count(*word1) > 0) {
-        auto word1Iter = mMarkovChain.at(*word1);
-        // See if the successive word is already in the first words submap
-        // If it is, update the count, otherwise add it
-        if (word1Iter.count(*word2) > 0) {
-            word1Iter.at(*word2)++; // might flop
-        } else {
-            word1Iter.insert(std::pair<std::string, int>(*word2, 1));
+void MarkovGenerator::InsertWord(std::string* word) {
+    // If the word is not already in the chain, add it
+    if (mMarkovChain.find(*word) == mMarkovChain.end()) {
+        mMarkovChain.emplace(*word);
+        // Check for the first word being added to the chain
+        //mMarkovChain.at(*word) = new std::vector<Node>();
+        if (this->mPrevWord != "") { // Not the first word
+            for (auto itr = mMarkovChain[*word].begin(); itr != mMarkovChain[*word].end(); itr++) {
+                if (itr->getWord())
+            }
+            Node node;
+            node.setWord(&mPrevWord);
+            node.increment();
+            mMarkovChain[*word].push_back(node);
         }
-    } else {
-        std::map<std::string, int> innerMap;
-        innerMap.insert(std::pair<std::string, int>(*word2, 1));
-        mMarkovChain.emplace(*word1, innerMap);
     }
 }
