@@ -6,24 +6,26 @@
 #include <fstream>
 #include <time.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "node.hpp"
 
 using namespace std;
 
-#define MarkovDictionary std::map<std::string, std::vector<Node>>
+#define MarkovMap std::map<std::string, std::vector<Node>>
 
 class MarkovGenerator {
     public:
         MarkovGenerator();
         void Print();
         void ReadInFile(const std::string path);
-        string GenerateTweet();
+        string GenerateChain();
     private:
-        MarkovDictionary mMarkovChain;
+        MarkovMap mMarkovMap;
         //map<string, vector<Node*>> mMarkovChain;
         std::string mPrevWord;
 
         void InsertWord(const std::string* word);
         string GetKeyFromIndex(int idx);
         string GetWordFromVector(vector<Node>* vec);
+        void PrettifyChain(string* chain);
 };

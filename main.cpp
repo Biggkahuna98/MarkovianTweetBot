@@ -5,6 +5,6 @@ int main() {
     mg.ReadInFile("const.txt");
     mg.Print();
     cout << "-------------" << endl;
-    cout << mg.GenerateTweet() << endl;
+    cout << mg.GenerateChain() << endl;
     return 0;
 }
