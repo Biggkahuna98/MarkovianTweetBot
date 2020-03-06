@@ -1,11 +1,17 @@
 all: main.o markov.o node.o
-	gcc -o markov main.o markov.o node.o
+	g++ -o markov main.o markov.o node.o
+
+debug: main.o markov.o node.o
+	g++ -g -O0 -v -da -Q -o markov main.o markov.o node.o
 
 main.o: main.cpp markov.o node.o
-	gcc -c main.cpp
+	g++ -c main.cpp
 
 markov.o: markov.cpp markov.hpp
-	gcc -c markov.cpp
+	g++ -c markov.cpp
 
-node.o: Node.cpp Node.hpp
-	gcc -c Node.cpp
+node.o: node.cpp node.hpp
+	g++ -c node.cpp
+
+clean:
+	rm -rf main.o markov.o node.o markov
