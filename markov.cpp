@@ -11,27 +11,20 @@ void MarkovGenerator::InsertWord(const std::string* word) {
     if (mPrevWord == "") {
         mMarkovChain.insert(make_pair(*word, vector<Node>()));
     } else {
-        if (mMarkovChain[mPrevWord].size() > 0) {
-            bool found = false;
-            // Go through the vector associated with the previous input and see if the inputted word exists as a node
-            for (vector<Node>::iterator itr = mMarkovChain[mPrevWord].begin(); itr != mMarkovChain[mPrevWord].end(); itr++) {
-                if (itr->getWord() == *word) {
-                    itr->increment();
-                    found = true;
-                }
+        // If there is a previous word, add the new word to the previous word's vector (or update the count if it already is in it)
+        bool found = false;
+        // Go through the vector associated with the previous input and see if the inputted word exists as a node
+        for (vector<Node>::iterator itr = mMarkovChain[mPrevWord].begin(); itr != mMarkovChain[mPrevWord].end(); itr++) {
+            if (itr->getWord() == *word) {
+                itr->increment();
+                found = true;
             }
-            // If the node doesn't exist, found is still false
-            if (!found) {
-                Node n;
-                n.setWord(word);
-                mMarkovChain[mPrevWord].push_back(n);
-                cout << mMarkovChain[mPrevWord].back().getWord() << " : " << mMarkovChain[mPrevWord].back().getCount() << endl;
-            }
-        } else {
+        }
+        // If the node doesn't exist, found is still false
+        if (!found) {
             Node n;
             n.setWord(word);
             mMarkovChain[mPrevWord].push_back(n);
-            cout << mMarkovChain[mPrevWord].back().getWord() << " : " << mMarkovChain[mPrevWord].back().getCount() << endl;
         }
     }
     mPrevWord = *word;
