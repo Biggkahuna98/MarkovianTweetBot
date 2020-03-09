@@ -113,7 +113,7 @@ void MarkovGenerator::PrettifyChain(string* chain) {
 }
 
 string MarkovGenerator::GenerateChain() {
-    int wordCount = 50;
+    int charCount = 280;
     string chain, word;
     chain = "";
 
@@ -122,7 +122,7 @@ string MarkovGenerator::GenerateChain() {
     word = GetKeyFromIndex(startingIndex);
     chain += word + " ";
 
-    for (int i = 0; i < wordCount; i++) {
+    while (chain.size() < charCount) {
         word = GetWordFromVector(&mMarkovMap[word]);
         chain += word + " ";
     }

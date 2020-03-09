@@ -1,3 +1,5 @@
+includePath=./poco/Net/include/Poco/Net/
+
 all: main.o markov.o node.o
 	g++ -o markov main.o markov.o node.o
 
